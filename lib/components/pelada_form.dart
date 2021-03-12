@@ -6,6 +6,17 @@ class PeladasForm extends StatelessWidget {
 
   final void Function(String, String) onSubmit;
 
+  _submitForm() {
+    final descricao = descricaoController.text;
+    final diasSemana = diasSemanaController.text;
+
+    if (descricao.isEmpty || diasSemana.isEmpty) {
+      return;
+    }
+
+    onSubmit(descricao, diasSemana);
+  }
+
   PeladasForm(this.onSubmit);
 
   @override
@@ -18,12 +29,16 @@ class PeladasForm extends StatelessWidget {
           children: <Widget>[
             TextField(
               controller: descricaoController,
+              keyboardType: TextInputType.text,
+              onSubmitted: (_) => _submitForm(),
               decoration: InputDecoration(
                 labelText: 'Descição',
               ),
             ),
             TextField(
               controller: diasSemanaController,
+              onSubmitted: (_) => _submitForm(),
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 labelText: 'Dias semana',
               ),
@@ -32,11 +47,7 @@ class PeladasForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 TextButton(
-                  onPressed: () {
-                    final descricao = descricaoController.text;
-                    final diasSemana = diasSemanaController.text;
-                    onSubmit(descricao, diasSemana);
-                  },
+                  onPressed: _submitForm,
                   child: Text(
                     'Nova Pelada',
                   ),
