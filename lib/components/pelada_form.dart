@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
-class PeladasForm extends StatelessWidget {
-  final descricaoController = TextEditingController();
-  final diasSemanaController = TextEditingController();
-
+class PeladasForm extends StatefulWidget {
   final void Function(String, String) onSubmit;
+
+  PeladasForm(this.onSubmit);
+
+  @override
+  _PeladasFormState createState() => _PeladasFormState();
+}
+
+class _PeladasFormState extends State<PeladasForm> {
+  final descricaoController = TextEditingController();
+
+  final diasSemanaController = TextEditingController();
 
   _submitForm() {
     final descricao = descricaoController.text;
@@ -14,10 +22,8 @@ class PeladasForm extends StatelessWidget {
       return;
     }
 
-    onSubmit(descricao, diasSemana);
+    widget.onSubmit(descricao, diasSemana);
   }
-
-  PeladasForm(this.onSubmit);
 
   @override
   Widget build(BuildContext context) {

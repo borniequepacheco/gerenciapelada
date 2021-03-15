@@ -13,6 +13,30 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomePage(),
+      theme: ThemeData(
+        primaryColor: Colors.green[800],
+        accentColor: Colors.amber,
+        fontFamily: 'RocknRollOne',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline4: TextStyle(
+                fontFamily: 'RocknRollOne',
+                fontWeight: FontWeight.bold,
+              ),
+              subtitle2: TextStyle(
+                fontFamily: 'RocknRollOne',
+                color: Colors.grey[500],
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+                  fontFamily: 'RocknRollOne',
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+        ),
+      ),
     );
   }
 }
@@ -23,8 +47,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _peladas = [
-    Pelada(
+  final List<Pelada> _peladas = [
+    /* Pelada(
       id: '0.00001',
       descricao: 'Ginasio esportes',
       diasSemana: 'seg qua sex',
@@ -33,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
       id: '0.00002',
       descricao: 'Dom Alano',
       diasSemana: 'domingo',
-    ),
+    ), */
   ];
 
   _addPelada(String descricao, String diasSemana) {
@@ -46,13 +70,15 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _peladas.add(newPelada);
     });
+
+    Navigator.of(context).pop(); //fechar tela (Modal) de add item lista
   }
 
   _openPeladasFormModal(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (_) {
-        return PeladasForm(null);
+        return PeladasForm(_addPelada);
       },
     );
   }
@@ -76,14 +102,15 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-              // width: double.infinity,
               child: Card(
-                color: Colors.lightBlue,
+                // color: Theme.of(context).accentColor,
+
                 child: Text(
                   'Cadastro de pelada',
                   textAlign: TextAlign.center,
                 ),
-                elevation: 15,
+
+                elevation: 5,
               ),
             ),
             PeladaList(_peladas),
@@ -92,8 +119,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
+        backgroundColor: Theme.of(context).primaryColor,
         onPressed: () => _openPeladasFormModal(context),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
