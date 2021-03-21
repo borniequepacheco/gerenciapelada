@@ -23,13 +23,17 @@ class PeladaList extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-/*                 Container(
-                  height: 30,
-                  child: Image.asset(
-                    'assets/images/logo.png',
-                    fit: BoxFit.cover,
+                Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        'assets/images/pelada.png',
+                      ),
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                ), */
+                ),
               ],
             )
           : ListView.builder(
